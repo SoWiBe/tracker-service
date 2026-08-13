@@ -2,8 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tracking.Application.Core;
+using Tracking.Domain.Core;
 using Tracking.Infrastructure.Interceptors;
 using Tracking.Infrastructure.Persistence;
+using Tracking.Infrastructure.Persistence.Repositories;
 
 namespace Tracking.Infrastructure.Extensions;
 
@@ -19,6 +21,10 @@ public static class ServiceExtensions
             .AddInterceptors(sp.GetRequiredService<AuditableInterceptor>()));
 
         services.AddScoped<ITrackingDbContext>(sp => sp.GetRequiredService<TrackingDbContext>());
+
+        services.AddScoped<ISessionRepository, SessionRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         return services;
     }
 }
