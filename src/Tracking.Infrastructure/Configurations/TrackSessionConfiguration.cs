@@ -12,8 +12,8 @@ public sealed class TrackSessionConfiguration : IEntityTypeConfiguration<TrackSe
         b.HasKey(x => x.Id);
 
         b.Property(x => x.Date).HasColumnType("date");
-        b.Property(x => x.StartedAt).HasColumnType("timestampz");
-        b.Property(x => x.EndedAt).HasColumnType("timestampz");
+        b.Property(x => x.StartedAt).HasColumnType("timestamptz");
+        b.Property(x => x.EndedAt).HasColumnType("timestamptz");
         b.Property(x => x.DurationMinutes).IsRequired();
         b.Property(x => x.Notes).HasMaxLength(2000);
 

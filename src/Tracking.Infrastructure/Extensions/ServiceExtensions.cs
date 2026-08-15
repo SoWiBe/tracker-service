@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tracking.Application.Core;
-using Tracking.Domain.Core;
 using Tracking.Infrastructure.Interceptors;
 using Tracking.Infrastructure.Persistence;
 using Tracking.Infrastructure.Persistence.Repositories;
@@ -23,6 +22,7 @@ public static class ServiceExtensions
         services.AddScoped<ITrackingDbContext>(sp => sp.GetRequiredService<TrackingDbContext>());
 
         services.AddScoped<ISessionRepository, SessionRepository>();
+        services.AddScoped<ITopicRepository, TopicRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;

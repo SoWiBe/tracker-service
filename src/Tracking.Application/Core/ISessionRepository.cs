@@ -1,4 +1,6 @@
-namespace Tracking.Domain.Core;
+using Tracking.Domain;
+
+namespace Tracking.Application.Core;
 
 public interface ISessionRepository
 {

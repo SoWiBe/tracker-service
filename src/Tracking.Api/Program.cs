@@ -11,6 +11,8 @@ builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+Console.WriteLine($"ENV: {builder.Environment.EnvironmentName}");
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
