@@ -2,7 +2,6 @@ using FluentValidation;
 using Tracking.Api.Infrastructure;
 using Tracking.Application.Core;
 using Tracking.Domain;
-using Tracking.Domain.Core;
 
 namespace Tracking.Api.Features.Sessions;
 

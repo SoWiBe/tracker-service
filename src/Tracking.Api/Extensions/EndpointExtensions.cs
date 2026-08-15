@@ -23,7 +23,7 @@ public static class EndpointExtensions
         var endpoints = app.Services.GetRequiredService<IEnumerable<IEndpoint>>();
         IEndpointRouteBuilder buidler = group is null ? app : group;
 
-        foreach (IEndpoint endpoint in endpoints) endpoint.MapEndpoint(buidler);
+        foreach (var endpoint in endpoints) endpoint.MapEndpoint(buidler);
 
         return app;
     }
