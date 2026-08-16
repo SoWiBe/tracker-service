@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Tracking.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using Tracking.Infrastructure.Persistence;
 namespace Tracking.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TrackingDbContext))]
-    partial class TrackingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260815034252_AddTopicFields")]
+    partial class AddTopicFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

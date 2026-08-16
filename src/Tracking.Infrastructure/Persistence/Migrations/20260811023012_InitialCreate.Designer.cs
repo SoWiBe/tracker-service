@@ -62,14 +62,14 @@ namespace Tracking.Infrastructure.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("EndedAt")
-                        .HasColumnType("timestampz");
+                        .HasColumnType("timestamptz");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
                     b.Property<DateTimeOffset>("StartedAt")
-                        .HasColumnType("timestampz");
+                        .HasColumnType("timestamptz");
 
                     b.Property<Guid>("TopicId")
                         .HasColumnType("uuid");
