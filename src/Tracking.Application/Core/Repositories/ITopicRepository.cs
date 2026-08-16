@@ -1,6 +1,6 @@
 using Tracking.Domain;
 
-namespace Tracking.Application.Core;
+namespace Tracking.Application.Core.Repositories;
 
 public interface ITopicRepository
 {

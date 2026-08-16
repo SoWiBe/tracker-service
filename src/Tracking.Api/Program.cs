@@ -4,14 +4,14 @@ using Tracking.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
 builder.Services.AddEndpoints(typeof(Program).Assembly);
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-Console.WriteLine($"ENV: {builder.Environment.EnvironmentName}");
+builder.Services.AddSwagger();
 
 var app = builder.Build();
 
@@ -23,7 +23,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-RouteGroupBuilder versionedGroup = app.MapGroup("/api/v1");
+var versionedGroup = app.MapGroup("/api/v1");
 app.MapEndpoints(versionedGroup);
 
 app.Run();

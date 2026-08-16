@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Tracking.Application.Core;
+using Tracking.Application.Core.Repositories;
 using Tracking.Domain;
 using Tracking.Domain.Core;
 

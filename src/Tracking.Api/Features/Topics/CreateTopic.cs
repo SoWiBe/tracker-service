@@ -1,7 +1,7 @@
 using FluentValidation;
+using Tracking.Api.Extensions;
 using Tracking.Api.Infrastructure;
-using Tracking.Application.Core;
-using Tracking.Domain;
+using Tracking.Application.Topics.CreateTopic;
 
 namespace Tracking.Api.Features.Topics;
 
@@ -22,8 +22,7 @@ public sealed class CreateTopic : IEndpoint
     private static async Task<IResult> HandleAsync(
         Request request,
         IValidator<Request> validator,
-        ITopicRepository topics,
-        IUnitOfWork unitOfWork,
+        CreateTopicHandler handler,
         CancellationToken ct)
     {
         var validation = await validator.ValidateAsync(request, ct);
@@ -32,18 +31,20 @@ public sealed class CreateTopic : IEndpoint
             return Results.ValidationProblem(validation.ToDictionary());
         }
 
-        if (await topics.ExistsByTitleAsync(request.Title, ct))
+        var result = await handler
+            .HandleAsync(new CreateTopicCommand(request.Title, request.Description), ct);
+
+        return result.Match(
+            topic => Results.Created($"/api/v1/topics/{topic.Id}", new Response(topic.Id, topic.Title)),
+             errors => errors.ToProblem());
+    }
+
+    public sealed class Validator : AbstractValidator<Request>
+    {
+        public Validator()
         {
-            return Results.Problem(
-                title: "Тема уже существует",
-                detail: $"Тема с названием «{request.Title.Trim()}» уже заведена",
-                statusCode: StatusCodes.Status409Conflict);
+            RuleFor(x => x.Title).NotEmpty().MaximumLength(200);
+            RuleFor(x => x.Description).MaximumLength(1000);
         }
-
-        var topic = Topic.Create(request.Title, request.Description);
-        await topics.AddAsync(topic, ct);
-        await unitOfWork.SaveChangesAsync(ct);
-
-        return Results.Created($"/api/v1/topics/{topic.Id}", new Response(topic.Id, topic.Title));
     }
 }
